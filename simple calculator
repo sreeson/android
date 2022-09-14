@@ -1,0 +1,75 @@
+package com.example.calculator;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+EditText nc1,nc2,rc;
+Button mc,ac,sc;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        nc1=(EditText)findViewById(R.id.n1);
+        nc2=(EditText)findViewById(R.id.n2);
+        rc=(EditText)findViewById(R.id.r);
+        mc=(Button) findViewById(R.id.m);
+        ac=(Button) findViewById(R.id.a);
+        sc=(Button) findViewById(R.id.s);
+
+
+      ac.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              if(!nc1.getText().toString().equals("")&&!nc2.getText().toString().equals("")){
+                  int a=Integer.parseInt(nc1.getText().toString());
+                  int b=Integer.parseInt(nc2.getText().toString());
+                  int c=a+b;
+                  rc.setText(Integer.toString(c));
+              }
+
+              else{
+                  Toast.makeText(getApplicationContext(),"fill",Toast.LENGTH_SHORT).show();
+              }
+          }
+      });
+        mc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!nc1.getText().toString().equals("")&&!nc2.getText().toString().equals("")){
+                    int a=Integer.parseInt(nc1.getText().toString());
+                    int b=Integer.parseInt(nc2.getText().toString());
+                    int c=a*b;
+                    rc.setText(Integer.toString(c));
+                }
+
+                else{
+                    Toast.makeText(getApplicationContext(),"fill",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        sc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!nc1.getText().toString().equals("")&&!nc2.getText().toString().equals("")){
+                    int a=Integer.parseInt(nc1.getText().toString());
+                    int b=Integer.parseInt(nc2.getText().toString());
+                    int c=a-b;
+                    rc.setText(Integer.toString(c));
+                }
+
+                else{
+                    Toast.makeText(getApplicationContext(),"fill",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+}
