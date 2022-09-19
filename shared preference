@@ -1,0 +1,40 @@
+package com.example.sharedpreferences;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.widget.EditText;
+
+public class MainActivity extends AppCompatActivity {
+EditText T1,T2;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        T1=(EditText)findViewById(R.id.U1);
+        T2=(EditText)findViewById(R.id.P1);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sh=getSharedPreferences("sp",MODE_PRIVATE);
+        String s1 = sh.getString("name", "");
+        String s2 = sh.getString("pass", "");
+        T1.setText(s1);
+        T2.setText(s2);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences = getSharedPreferences("sp",
+                MODE_PRIVATE);
+        SharedPreferences.Editor sp = sharedPreferences.edit();
+        sp.putString("name", T1.getText().toString());
+        sp.putString("pass", T2.getText().toString());
+        sp.commit();
+        sp.apply();
+    }
+}
