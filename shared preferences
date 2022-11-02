@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="shared preference"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="104dp"
+        android:layout_height="49dp"
+        android:text="USERNAME"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.097" />
+
+    <EditText
+        android:id="@+id/U1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="89dp"
+        android:layout_height="47dp"
+        android:text="PASSWORD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        app:layout_constraintVertical_bias="0.091" />
+
+    <EditText
+        android:id="@+id/P1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="260dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/U1"
+        app:layout_constraintVertical_bias="0.199" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+main activity
+
+
+package com.example.sharedpreferences;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.widget.EditText;
+
+public class MainActivity extends AppCompatActivity {
+EditText T1,T2;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        T1=(EditText)findViewById(R.id.U1);
+        T2=(EditText)findViewById(R.id.P1);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sh=getSharedPreferences("sp",MODE_PRIVATE);
+        String s1 = sh.getString("name", "");
+        String s2 = sh.getString("pass", "");
+        T1.setText(s1);
+        T2.setText(s2);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences = getSharedPreferences("sp",
+                MODE_PRIVATE);
+        SharedPreferences.Editor sp = sharedPreferences.edit();
+        sp.putString("name", T1.getText().toString());
+        sp.putString("pass", T2.getText().toString());
+        sp.commit();
+        sp.apply();
+    }
+}
